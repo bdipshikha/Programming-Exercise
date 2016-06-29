@@ -1,0 +1,105 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #5a5c51;
+        opacity: 0.5;
+        z-index:1;
+
+      }
+      .nav {
+        float: left;
+      }
+      .nav a {
+        font-size: 16px;
+        display: block;
+        color: #dddfd4;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      .nav a:hover {
+        background-color: #6ed39d;
+      }
+      body {
+        text-align: justify;
+        background-color: #e3e0cf;
+        margin-top: 70px;
+        padding: 15px;
+        color: #173e43;
+        font-size: 18px;
+      }
+      .col-md-10 {
+        margin-bottom: 20px;
+      }
+      .link {
+        margin-bottom: 10px;
+        /*list-style-type: none;*/
+      }
+      a {
+        color: #173e43;
+      }
+
+    </style>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <nav style="margin:0px;">
+
+    <ul class = "navbar" style="margin:0px;">
+      <li class = 'nav'><a href="/problems">Home</a></li>
+
+      <% if (student) %>
+        <li class = "nav"><a method="GET" href = '/logout'>Logout</a></li>
+      <% end %>
+      <% if (teacher) %>
+        <li class = "nav"><a method="GET" href = '/logout'>Logout</a></li>
+        <li class = "nav"><a href = "/problems/new">Add problem</a></li>
+      <% end %>
+      <li class = "nav" style="float:right"><a href="/sign-up">Sign Up</a></li> 
+      <li class = "nav" style="float:right"><a href="/login">Login</a></li>     
+    </ul>
+    </nav>
+
+    <!-- <ul class = "list"> -->
+
+    <div class = "row">
+      <div class = "col-md-10 col-md-offset-1" >
+        <h4><u>Problems</u></h4>
+        <% problems.each do |problem| %>
+        <li class = "link" >
+          <a href = "/problems/<%= problem.id %>">
+            <%= problem.content %></a></br>
+        </li>
+        <% end %>
+      </div>
+    </div>
+    <div class = "row">
+      <div class = "col-md-10 col-md-offset-1">
+        <h4><u>Answers</u></h4>
+        <% answers.each do |answer| %>
+        <li class = "link">
+          <a href = '/answer/<%= answer.id %>'>
+          <%= answer.content[0...200] %>...</a></br>
+        </li>
+        <% end %>
+      </div>
+    </div>
+  </body>
+</html>

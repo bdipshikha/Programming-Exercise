@@ -1,0 +1,95 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #5a5c51;
+        opacity: 0.5;
+        z-index:1;
+        
+      }
+      .nav {
+        float: left;
+      }
+      .nav a {
+        display: block;
+        color: #dddfd4;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      .nav a:hover {
+        background-color: #3fb0ac;
+      }
+      body {
+        margin-top: 70px;
+        padding: 15px;
+        background-color: #e3e0cf;
+      }
+      .col-md-6 {
+        /*margin-bottom: 20px;*/
+        /*margin: 15px;*/
+      }
+      .link {
+        padding-bottom: 10px;
+      }
+      input[type="text"] {
+        border-radius: 5px;
+        font-size: 18px;
+        width: 100%;
+      }
+      textarea {
+        border-radius: 5px;
+        width: 100%;
+        font-size: 18px;
+      }
+      label {
+        font-size: 18px;
+      }
+      .btn-secondary {
+        width: 100%;
+        font-size: 18px;
+        background-color: #d36e72;
+      }    
+    </style>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <ul class = "navbar" >
+      <li class = 'nav'><a href="/problems">Home</a></li>
+      <li class = "nav"><a method="GET" href = '/logout'>Logout</a></li> 
+    </ul> 
+    <div class = "row">
+      <div class = "col-md-6 col-md-offset-3" >
+        <h1>Update a Answer here:</h1>
+        <form class = "list" method = "post" action = "/answer/<%= answer.id %>" >
+          <input type = "hidden" name = "_method" value = "put">
+ 
+          <label> Title: </label></br>
+          <input type = "text" name = "title" value ="<%= answer.title %>"><br/></br>
+          <label> Content: </label></br>
+          <textarea rows="8" cols="100" name="content"><%= answer.content %></textarea><br/></br>
+
+          <button class = "btn btn-secondary">Update Answer!</button>
+        </div>
+    </form>
+    </div>
+  </body>
+</html>
+
+
