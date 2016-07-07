@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       .navbar {
@@ -41,6 +41,7 @@
         color: #173e43;
         font-size: 18px;
         text-align: justify;
+        font-family: PT Sans Narrow, sans-serif;
       }
       .col-md-8 {
         /*margin-bottom: 20px;*/
@@ -79,17 +80,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <!-- navbar starts here -->
-    <ul class = "navbar" style="margin:0px;">
-      <li class = 'nav'><a href="/problems">Home</a></li>    
-      <% if (student) %>
+    <ul class = "navbar">
+      <li class = 'nav'><a href="/problems">Home</a></li>
+      <li class = "nav" style="float:right"><a method="GET" href = '/logout'>Logout</a></li>
+      <% if (is_creator) %>
         <li class = "nav"><a href="/answer/<%= answer.id %>/edit">Edit Answer</a></li>
-        <li class = "nav"><a method="GET" href = '/logout'>Logout</a></li>
       <% end %>
-      <% if (teacher) %>
-        <li class = "nav"><a method="GET" href = '/logout'>Logout</a></li>
-      <% end %>
-      <li class = "nav" style="float:right"><a href="/sign-up">Sign Up</a></li> 
-      <li class = "nav" style="float:right"><a href="/login">Login</a></li> 
     </ul>
 
 
@@ -100,10 +96,13 @@
           <div class = "col-md-9"> 
             <h3><%= answer.title %></h3>
             <pre><%= answer.content %></pre></br>
+            <p style="float:right"> Answered by </br><img width="50px;" height="50px;" src="<%= user_image %>"> <%= user.upcase %></p></br>
+            <% if (is_creator) %>
             <form action="/answer/<%= answer.id %>" method="POST"> 
               <input type="hidden" name="_method" value="delete">
               <button style="width:auto;background:transparent;border:none;"><img src="http://www.freeiconspng.com/uploads/remove-icon-png-26.png" style="width:70px;height:60px;"></button>
             </form>
+           <% end %>
           </div>
 
           <div class = "col-md-3" style="background:#9fa8a3; height:1000px;">
@@ -112,7 +111,7 @@
               <% if comment.answer_id == answer.id %>
                 <li>
                   <%= comment.comment %></br>
-                  <p style="font-size:13px;">By: <%= comment.name %></p>
+                  By: <%= User.find(comment.created_by).username.upcase %>
                 </li>
               <% end %>
             <% end %>
@@ -120,8 +119,7 @@
             <form action="/answer/<%= answer.id %>" method="POST">          
               <label>Comment:</label></br>
               <textarea rows="4" name="comment"></textarea><br/></br>
-              <label>Name:</label></br>
-              <input type = "text" name = "name"><br/></br>
+    
               <button style="width:auto;background:transparent;border:none;"><img src="http://www.clker.com/cliparts/v/j/j/k/U/s/red-submit-button-hi.png" style="width:100px;height:50px;"></button>
             </form>
           </div>

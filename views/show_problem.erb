@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     .navbar {
@@ -40,6 +40,7 @@
         font-size: 18px;
         background-color: #e3e0cf;
         text-align: justify;
+        font-family: PT Sans Narrow, sans-serif;
       }
       .col-md-8 {
         margin-bottom: 20px;
@@ -63,23 +64,34 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <!-- navbar -->
     <ul class = "navbar">
-      <li class = "nav"><a href="/problems">Home</a></li>
+      <li class = "nav"><a href="/problems">Home Page</a></li>
       <% if (student) %>
         <li class = "nav"><a href="/problem/<%= problem.id %>/answers/new">New Answer</a></li>
-        <li class = "nav"><a method="GET" href = '/logout'>Logout</a></li> 
+        <li class = "nav" style="float:right"><a method="GET" href = '/logout'>Logout</a></li> 
       <% end %>
-      <% if (teacher) %>
+      <% if (is_creator) %>
         <li class = "nav"><a href = "/problems/<%= problem.id %>/edit">Edit Problem</a></li>
-        <li class = "nav"><a method="GET" href = '/logout'>Logout</a></li>     
+        <li class = "nav" style="float:right"><a method="GET" href = '/logout'>Logout</a></li>     
       <% end %>
-      <li class = "nav" style="float:right"><a href="/sign-up">Sign Up</a></li> 
-      <li class = "nav" style="float:right"><a href="/login">Login</a></li> 
+
     </ul> 
   <!-- navbar ends here -->
     <div class = "row">
-      <div class = "col-md-8 col-md-offset-2">
+      <div class = "col-md-10 col-md-offset-1">
         <h4><u><%= problem.title %></u></h4></br>
         <%= markdown_html  %></br>
+        <p style="float:right" >Problem uploaded by </br>
+        <img width="50px" height="50px;" src="<%= user_image %>">  <%= user.upcase %></p>
+        <% if (is_creator) %>
+          <form action="/problems/<%= problem.id %>" method="post" class = "delete-form">
+            <input type="hidden" name="_method" value="delete">
+            <button style="width:auto;background:transparent;border:none;"><img src="http://www.freeiconspng.com/uploads/remove-icon-png-26.png" style="width:70px;height:60px;"></button>
+          </form>
+        <% end %>
+      </div>
+    </div>
+     <div class = "row">
+      <div class = "col-md-10 col-md-offset-1">
         <h4><u>Answers</u></h4></br>
         <!-- <ul> -->
           <% answers.each do |answer| %>
@@ -88,19 +100,9 @@
               <a href="/answer/<%= answer.id %>">
                 <%= answer.title %></br>
                 <%= answer.content[0...200] %>...</a></br>
-            <!-- </li> -->
             <% end %>
           <% end %>
-        <!-- </ul> -->
       </div>
-    </div>
-    <div class = "row">
-      <div class = "col-md-8 col-md-offset-2">
-        <form action="/problems/<%= problem.id %>" method="post" class = "delete-form">
-          <input type="hidden" name="_method" value="delete">
-          <button style="width:auto;background:transparent;border:none;"><img src="http://www.freeiconspng.com/uploads/remove-icon-png-26.png" style="width:70px;height:60px;"></button>
-        </form>
-      </div> 
     </div>
   </body>
 </html>
