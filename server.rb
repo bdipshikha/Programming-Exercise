@@ -4,6 +4,8 @@ require 'active_record'
 require 'bcrypt'
 require 'json'
 require 'rdiscount'
+require './config/environments'
+require 'sinatra/activerecord'
 
 require_relative 'models/problem'
 require_relative 'models/answer'

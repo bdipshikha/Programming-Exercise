@@ -1,4 +1,4 @@
-require_relative '../exercises/connection'
+# require_relative '../exercises/connection'
 
 class User < ActiveRecord::Base
 end

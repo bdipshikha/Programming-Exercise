@@ -68,9 +68,22 @@
       p {
         padding-left: 20px;
       }
-      button {
-
+      .submit {
+        width:70px;
+        height:40px;
       }
+      #comment {
+        list-style-type: none;
+      }
+      hr {
+        border-color: #b3b3b3;
+      }
+
+    button {
+      width:auto;
+      background:transparent;
+      border:none;
+    }
 
     </style>
 
@@ -104,27 +117,33 @@
             </form>
            <% end %>
           </div>
-
-          <div class = "col-md-3" style="background:#9fa8a3; height:1000px;">
-            <h3><u>Comments:</u></h3></br>
+          <div class = "col-md-3">
+            <form action="/answer/<%= answer.id %>" method="POST">          
+              <label><h3>Comment:</h3></label></br>
+              <textarea rows="4" name="comment"></textarea><br/></br>
+              <button><img class = "submit" src="http://www.clker.com/cliparts/v/j/j/k/U/s/red-submit-button-hi.png"></button>
+            </form>
+          </div>
+        </div>
+        <hr>
+        <div class = "row">
+            <div class = "col-md-9">
+              <h3><u>Comments:</u></h3>
             <% comments.each do |comment| %>
               <% if comment.answer_id == answer.id %>
-                <li>
-                  <%= comment.comment %></br>
-                  By: <%= User.find(comment.created_by).username.upcase %>
+                <li id="comment">
+                              <div class = "row">
+                <div class = "col-md-10 col-md-offset-1">
+                  <%= comment.comment %> - <%= User.find(comment.created_by).username.upcase %>
                 </li>
               <% end %>
             <% end %>
-            <hr>
-            <form action="/answer/<%= answer.id %>" method="POST">          
-              <label>Comment:</label></br>
-              <textarea rows="4" name="comment"></textarea><br/></br>
-    
-              <button style="width:auto;background:transparent;border:none;"><img src="http://www.clker.com/cliparts/v/j/j/k/U/s/red-submit-button-hi.png" style="width:100px;height:50px;"></button>
-            </form>
           </div>
         </div>
       </div>
     </div>
   </body>
 </html>
+
+
+
